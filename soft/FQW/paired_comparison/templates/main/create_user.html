@@ -1,0 +1,21 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Данные пользователя
+{% endblock %}
+{% include 'main/errors.html' %}
+
+{% block content %}
+<div class="content">
+    <form method="post">
+        <p>Вы собираетесь принять участие в сборе экспертных оценок. Далее вам будут предлогаться по два объекта. Ваша
+            задача сравнить их и <b>выбрать один из них</b>.</p>
+        <p>В случае если вам необходимо прерваться, вы можете вернуться к оцениванию позже, <b>с данного устройства</b>.</p>
+        {% csrf_token %}
+        {{ form.name }}<br>
+        {{ form.email }}<br>
+        <button type="submit" class="form-elem-btn form-elem">Начать сравнивать</button>
+    </form>
+</div>
+{% endblock %}
+

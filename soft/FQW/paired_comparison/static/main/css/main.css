@@ -1,0 +1,235 @@
+body {
+    margin:0px;
+    background: #ecf1ff;
+    font-family: Roboto;
+}
+a {
+    word-wrap: break-word;
+}
+
+header, header>div, header>menu, #targets, #info {
+    display: grid;
+}
+
+.logo {
+    height:100%;
+    position: relative;
+    z-index: -1;
+}
+.logo>img {
+    height: 100px;
+}
+.logo>h1 {
+    position: relative;
+    top: -50px;
+    white-space: nowrap;
+}
+header {
+    text-align: center;
+
+}
+header>div {
+    grid-template-columns: repeat(2, 1fr);
+    height: 100px;
+}
+
+header>menu {
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    text-align: center;
+    margin-top: 10px;
+}
+
+menu {
+    background: #cbd9ff9e;
+    padding: 0px;
+}
+menu>a {
+    padding: 20px;
+    text-decoration:none;
+    color:#222;
+
+}
+menu a:hover {
+    background: #cbd9ff;
+    transition-duration: 0.5s;
+}
+
+.content {
+    padding:20px;
+    padding-top: 0px;
+}
+
+form {
+    width: 400px;
+    margin: 0 auto;
+}
+
+
+.form-elem {
+    padding: 10px;
+    border: 0;
+    margin:10px 0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    width:100%;
+    box-sizing: border-box;
+    background:#e3e7f5;
+}
+.form-elem-btn {
+    background: #e3e7f5;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06),inset 0px 0px 4px 0px rgb(0 0 0 / 6%);
+    cursor: pointer;
+}
+
+label[class=form-elem]{
+    box-shadow: none;
+    background: none;
+}
+
+table {
+	width: 100%;
+	margin-bottom: 20px;
+	border: 15px solid #dfe3f0;
+	border-top: 5px solid #dfe3f0;
+	border-collapse: collapse;
+	box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+
+}
+table th {
+	font-weight: bold;
+	padding: 5px;
+	background: #dfe3f0;
+	border: none;
+	border-bottom: 5px solid #dfe3f0;
+}
+table td {
+	padding: 5px;
+	border: none;
+	border-bottom: 5px solid #dfe3f0;
+}
+td th {
+    width:55px;
+    height: 55px;
+}
+
+
+#targets{
+    grid-template-columns: repeat(2, 1fr);
+}
+#targets > div {
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    background: #dfe3f0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+#targets > div:last-child {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+}
+
+#info {
+    grid-template-columns: auto 115px;
+}
+h2 {
+     margin: 5px;
+}
+#info > details {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+i {
+    cursor: help;
+
+}
+
+details {
+    overflow-x: auto;
+}
+
+.error {
+    background: #ffd8d3;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06)
+}
+.worried {
+    background: #ffd8d3;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06)
+}
+
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0,0,0,0.5); /* Полупрозрачное затемнение */
+    z-index: 1; /* Фон на нижнем слое */
+    padding: 50px;
+}
+.user-result {
+    background-color: #ecf1ff;
+    padding:10px;
+    width: 100%;
+    height: 100%;
+        overflow: auto;
+}
+.close {
+  font-size:  30px;
+  font-weight:  bold;
+      position: fixed;
+        top: 5px;
+    right: 5px;
+}
+
+#what-do {
+    background-color: #ecf1ff;
+    padding: 20px;
+}
+h4 {
+    margin:0;
+}
+
+
+@media screen and (max-width: 800px) {
+header>div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 550px) {
+#targets, #info {
+    grid-template-columns: repeat(1, 1fr);
+}
+#targets > div:last-child{
+    grid-column-start: auto;
+    grid-column-end: auto;
+}
+#info > details{
+    grid-column-start: auto;
+    grid-column-end: auto;
+}
+
+.modal {
+    padding: 10px;
+}
+
+@media screen and (max-width: 400px) {
+header>menu {
+    grid-template-columns: repeat(1, 1fr);
+}
+.logo>h1 {
+    position: absolute;
+    right: 0px;
+    top: auto;
+    bottom: 0px;
+    margin: 0px;
+}
+
+form {
+    width: 100%
+}
+}

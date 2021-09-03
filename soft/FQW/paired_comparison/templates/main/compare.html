@@ -1,0 +1,43 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+{{ target.title }}
+{% endblock %}
+{% include 'main/errors.html' %}
+
+{% block content %}
+<div class="content">
+    <div id="comparison">
+        <div id="info">
+        </div>
+        <hr>
+        <div id="targets">
+        </div>
+        {% if errors %}
+        {% include 'main/errors.html' %}
+        {% else %}
+        <script src="{% static 'main/js/main.js' %}"></script>
+        <script src="{% static 'main/js/get_result.js' %}"></script>
+        {% endif %}
+    </div>
+</div>
+<div class="modal" onclick="closeUserResult('what-do')" )>
+    <span class="close" onclick="closeUserResult('what-do')" )>x</span>
+    <div id="what-do">
+        <h4>Что делать?</h4>
+        <p>
+            У вас на экране расположены две альтернативы по заданной теме. Ваша задача выбрать наилучший вариант и
+            нажать на него. В случае равнозначности обоих альтернатив, вы можете пропустить данное сравнение.
+        </p>
+        <p>
+            Вам будут предлогаться альтернативы до тех пор, пока вы не сравните все из списка.
+        </p>
+        <p>
+            В любой момент вы можете преваться и закрыть сраницу. Вернуться к исследованию вы можете в любой момент в
+            течении месяца, но лишь с устройства на котором вы начали проходить исспледование.
+        </p>
+    </div>
+</div>
+{% endblock %}
+

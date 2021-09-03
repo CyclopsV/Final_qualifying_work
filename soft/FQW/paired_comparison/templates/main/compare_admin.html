@@ -1,0 +1,200 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<div class="content">
+{% if errors %}
+{% include 'main/errors.html' %}
+{% else %}
+<h2>{{ comparison.id }}. {{ comparison.title }}</h2>
+<hr>
+
+{% if comparison.description %}
+<p>{{ comparison.description }}</p>
+{% endif %}
+<div>
+    <b>Сохраните ссылки для дальнейшего доступа:</b>
+    <ul>
+        <li>
+            Ссылка для сбора оценок:
+            <a href="{% url 'compare_target' comparison.id %}">{{ urls.main }}</a>
+        </li>
+        <li>
+            Ссылка с результатами (эта страница):
+            <a href="{% url 'compare_admin' comparison.id comparison.url %}">{{ urls.admin }}</a>
+        </li>
+    </ul>
+</div>
+<details>
+    <summary>
+        Список для оценки:
+    </summary>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Название</th>
+            {% for parameter_title in comparison.parameters_title %}
+            <th>
+                {{ parameter_title }}
+            </th>
+            {% endfor %}
+            <th>
+                Сравнений
+            </th>
+        </tr>
+        {% for row in objects %}
+        <tr>
+            <td>
+                {{ row.raw_id }}
+            </td>
+            <td>
+                {{ row.title }}
+            </td>
+            {% for parameter in row.parameters %}
+            <td>
+                {{ parameter }}
+            </td>
+            {% endfor %}
+            <td>
+                {{ row.number_comparisons }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</details>
+<hr>
+<details>
+    <summary>
+        Список участников:
+    </summary>
+    {% if users %}
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+            <th>Результаты</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>
+                {{ forloop.counter }}
+            </td>
+            <td>
+                {{ result.user.name }}
+            </td>
+            <td>
+                <a href="mailto: {{ result.user.email }}">{{ result.user.email }}</a>
+            </td>
+            <td>
+                {{ result.start }}
+            </td>
+            <td>
+                {% if result.final %}
+                {{ result.final }}
+                {% else %}
+                Не окончил
+                {% endif %}
+            </td>
+            <td>
+                <button class="form-elem-btn" onclick="getUserResult('u-{{ forloop.counter }}')">Посмотреть</button>
+            </td>
+        </tr>
+
+
+        {% endfor %}
+    </table>
+    {% else %}
+    {% include 'main/nodata.html' %}
+    {% endif %}
+</details>
+<hr>
+<details>
+    <summary>
+        Итоговые результаты:
+    </summary>
+    {% if comparison.result_fin %}
+    <table>
+        <tr>
+            <th>#</th>
+            {% for row in comparison.result_fin %}
+            <th>{{ forloop.counter0 }}</th>
+            {% endfor %}
+            <th>Результат</th>
+        </tr>
+        {% for row in comparison.result_fin %}
+        <tr>
+            <th>
+                {{ forloop.counter0 }}
+            </th>
+            {% for cell in row %}
+            <td>
+                {{ cell }}
+            </td>
+            {% endfor %}
+            <td class=" result">
+                {{ row|sum_list }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+    {% include 'main/nodata.html' %}
+    {% endif %}
+</details>
+</div>
+{% if users %}
+{% for result in results %}
+<div class="modal" onclick="closeUserResult('u-{{ forloop.counter }}')")>
+    <span class="close" onclick="closeUserResult('u-{{ forloop.counter }}')")>x</span>
+    <div id="u-{{ forloop.counter }}" class="user-result">
+        <div>
+            Участник: <b> {{ result.user.name }}</b><br>
+            Email: <a href="mailto: {{ result.user.email }}">{{ result.user.email }}</a><br>
+            Дата первого сравнения: {{ result.start }}<br>
+            Дата окончания сравнения:
+            {% if result.final %}
+            {{ result.final }}
+            {% else %}
+            Не окончил
+            {% endif %}<br>
+        </div>
+        <table>
+            <tr>
+                <th>#</th>
+                {% for row in result.result %}
+                <th>{{ forloop.counter0 }}</th>
+                {% endfor %}
+                <th>Результат</th>
+            </tr>
+            {% for row in result.result %}
+            <tr>
+                <th>
+                    {{ forloop.counter0 }}
+                </th>
+                {% for cell in row %}
+                <td>
+                    {{ cell }}
+                </td>
+                {% endfor %}
+                <td class=" result">
+                    {{ row|sum_list }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+<script src="{% static 'main/js/get_result.js' %}"></script>
+{% endif %}
+{% endblock %}
+

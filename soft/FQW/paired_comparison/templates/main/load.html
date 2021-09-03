@@ -1,0 +1,25 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Добавление списка
+{% endblock %}
+
+{% block content %}
+<div class="content">
+<h2>Добавление списка для попарного сравнения</h2>
+<p>Загрузите файл excel-таблицы со списком для попарного сравнения. Где каждая новая строка является отдельным объектом
+    для сравнения, а каждый столбец является дополнительным параметром. <b>В первой строке должны находиться названия
+        параметров.</b></p>
+<div class="form-load">
+    {% include 'main/errors.html' %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.title }}<br>
+        {{ form.description }}<br>
+        {{ form.file }}<br>
+        <label class="form-elem">{{ form.index_check }} {{ form.index_check.help_text }}</label><br>
+        <button type="submit" class="form-elem-btn form-elem">Отправить список</button>
+    </form>
+</div>
+</div>
+{% endblock %}
